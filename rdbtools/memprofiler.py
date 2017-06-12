@@ -94,9 +94,9 @@ class PrintAllKeys(object):
             return  # some records are not keys (e.g. dict)
         if self._largest is None:
             if self._bytes is None or record.bytes >= int(self._bytes):
-                rec_str = "%d,%s,%s,%d,%s,%d,%d\n" % (
+                rec_str = "%d,%s,%s,%d,%s,%d,%d,%s\n" % (
                     record.database, record.type, record.key, record.bytes, record.encoding, record.size,
-                    record.len_largest_element)
+                    record.len_largest_element, record.expiry)
                 self._out.write(codecs.encode(rec_str, 'latin-1'))
         else:
             heappush(self._heap, (record.bytes, record))
@@ -191,6 +191,7 @@ class MemoryCallback(RdbCallback):
     def start_hash(self, key, length, expiry, info):
         self._current_encoding = info['encoding']
         self._current_length = length        
+        self._current_expiry = expiry
         size = self.top_level_object_overhead(key, expiry)
         
         if 'sizeof_value' in info:
@@ -240,6 +241,7 @@ class MemoryCallback(RdbCallback):
     
     def start_list(self, key, expiry, info):
         self._current_length = 0
+        self._current_expiry = expiry
         self._list_items_size = 0
         self._list_items_zipped_size = 0
         self._current_encoding = info['encoding']
