@@ -23,16 +23,19 @@ sdict = {
     'description' : 'Utilities to convert Redis RDB files to JSON or SQL formats',
     'long_description' : long_description,
     'url': 'https://github.com/sripathikrishnan/redis-rdb-tools',
-    'download_url' : 'http://cloud.github.com/downloads/andymccurdy/redis-py/redis-%s.tar.gz' % __version__,
-    'author' : 'Sripathi Krishnan',
+    'download_url': 'https://github.com/sripathikrishnan/redis-rdb-tools/archive/rdbtools-%s.tar.gz' % __version__,
+    'author': 'Sripathi Krishnan, Redis Labs',
     'author_email' : 'Sripathi.Krishnan@gmail.com',
-    'maintainer' : 'Sripathi Krishnan',
-    'maintainer_email' : 'Sripathi.Krishnan@gmail.com',
+    'maintainer': 'Sripathi Krishnan, Redis Labs',
+    'maintainer_email': 'oss@redislabs.com',
     'keywords' : ['Redis', 'RDB', 'Export', 'Dump', 'Memory Profiler'],
     'license' : 'MIT',
     'packages' : ['rdbtools', 'rdbtools.cli'],
-    'package_data' : {'rdbtools.cli': ['*.template']},
+    'package_data' : {
+        'rdbtools': ['templates/*'],
+    },
     'test_suite' : 'tests.all_tests',
+    'install_requires': ['redis'],
     'entry_points' : {
         'console_scripts' : [
             'rdb = rdbtools.cli.rdb:main',
@@ -40,7 +43,7 @@ sdict = {
             'redis-profiler = rdbtools.cli.redis_profiler:main'],
     },
     'classifiers' : [
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
